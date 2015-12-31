@@ -10,7 +10,7 @@ topd -h NB113
 output:
 
     +----------+--------------------+----------------+----------------------------+
-    | HOSTNAME |        USER  |      TYPE      |       SPECIFICATION        |
+    | HOSTNAME |        USER  |      TYPE      |       SPECIFICATION              |
     +----------+--------------------+----------------+----------------------------+
     | NB1131   | IT                 | Latitude E6430 | Core i5-3230M, 8GB RAM,... |
     | NB1132   | Franz              | Latitude E6430 | Core i5-3230M, 8GB RAM,... |
