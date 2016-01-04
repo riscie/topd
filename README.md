@@ -5,7 +5,14 @@ make simple search querys against a TOPdesk DB in your console
 
 Search for a device by it's hostname:
 
-`topd -h NB113`
+Usage:  topd <search>
+
+    Examples:
+        topd nb2737         //search by inventory number
+
+Example:
+
+`topd NB113`
 
 output:
 
