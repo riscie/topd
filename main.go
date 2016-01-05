@@ -31,19 +31,15 @@ func main() {
 	// We are only getting items where we find the object-name atm...
 	results := []model.Hardware{}
 	results, _ = model.FindByName(searchString)
-	fmt.Println(results)
-
 
 	// Table-Forming and output of the result
 	util := tablewriter.NewWriter(os.Stdout)
-
-	// TODO: Make this dynamically from the struct
-	util.SetHeader([]string{"#", "OBJECT-ID", "USER", "TYPE", "SPECIFICATION", "LOCATION", "IP", "MAC"})
-
-	var data [][]string = helper.ProcessStructForTableOutput(results)
-	for _,d := range data {
-		util.Append(d)
+	tableHeader := helper.CreateTableHeaderFromQueryResult(results)
+	tableData := helper.CreateTableDataFromQueryResult(results)
+	for _, t := range tableData {
+		util.Append(t)
 	}
+	util.SetHeader(tableHeader)
 	util.Render()
 }
 

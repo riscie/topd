@@ -3,30 +3,45 @@ package helper
 import (
 	"github.com/riscie/topd/model"
 	"strconv"
+	"reflect"
 )
 
-//  max length of string inside a colloumn, so that that there are no linebreaks within the table output
+// max length of string inside a colloumn, so that that there are no linebreaks within the table output
 const rowMaxLenght = 23
 
-// TODO: Make this dynamically from the struct, maybe return the header as well
-func ProcessStructForTableOutput(hardware []model.Hardware) [][]string {
-	var data [][]string
-	for i,h := range hardware{
-		//"#", "OBJECT-ID", "USER", "TYPE", "SPECIFICATION", "LOCATION", "IP"
+// CreateTableDataFromQueryResult takes a slice of Hardware and returns a slice
+// of slice of string ([][]string) which will be passed to the table writer
+func CreateTableDataFromQueryResult(hardware []model.Hardware) [][]string {
+	var tableData [][]string
+	for i, h := range hardware {
 		line := []string{
 			strconv.Itoa(i),
-			h.Name,
-			shortenStringsLongerThan(h.User,rowMaxLenght),
-			shortenStringsLongerThan(h.Type,rowMaxLenght),
+			h.ObjectID,
+			shortenStringsLongerThan(h.User, rowMaxLenght),
+			shortenStringsLongerThan(h.Type, rowMaxLenght),
 			shortenStringsLongerThan(h.Description, rowMaxLenght),
 			shortenStringsLongerThan(h.Location, rowMaxLenght),
 			shortenStringsLongerThan(h.IP, rowMaxLenght),
 			shortenStringsLongerThan(h.MAC, rowMaxLenght),
 		}
 
-		data = append(data, line)
+
+
+		tableData = append(tableData, line)
 	}
-	return data
+	return tableData
+}
+
+func CreateTableHeaderFromQueryResult(result []model.Hardware)([]string){
+	//Title: "#", "OBJECT-ID", "USER", "TYPE", "SPECIFICATION", "LOCATION", "IP", "MAC"
+	var tableHeader[]string
+	tableHeader = append(tableHeader, "#") //Adding # for the index
+	value := reflect.Indirect(reflect.ValueOf(result[0]))
+	for i := 0; i<value.Type().NumField(); i++ {
+		tableHeader = append(tableHeader, value.Type().Field(i).Name) //adding each variable Name to the Table Header
+	}
+
+	return tableHeader
 }
 
 // ShortenStringsLongerThan is an utlilty-function to help shorten
