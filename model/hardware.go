@@ -6,18 +6,19 @@ import (
 
 // Hardware table contains the information for each Object
 type Hardware struct {
-	Name        string `db:"naam"`
-	User        string `db:"ref_gebruiker"`
-	Type        string `db:"objecttype"`
-	Description string `db:"specificatie"`
-	Location    string `db:"ref_lokatie"`
-	IP          string `db:"ipadres"`
+	Name        	string `db:"naam"`
+	User		string `db:"ref_gebruiker"`
+	Type		string `db:"objecttype"`
+	Description	string `db:"specificatie"`
+	Location	string `db:"ref_lokatie"`
+	IP		string `db:"ipadres"`
+	MAC		string `db:"macadres"`
 }
 
 //FindByName finds Hardware objects by Name and returns a slice of Hardware
 func FindByName(searchString string) ([]Hardware, error) {
 	result := []Hardware{}
-	err := db.Select(&result, "SELECT naam, ref_gebruiker, objecttype, specificatie, ref_lokatie, ipadres FROM hardware where naam Like '%"+searchString+"%'")
+	err := db.Select(&result, "SELECT naam, ref_gebruiker, objecttype, specificatie, ref_lokatie, ipadres, macadres FROM hardware where naam Like '%"+searchString+"%'")
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -34,12 +34,11 @@ func main() {
 	fmt.Println(results)
 
 
-
 	// Table-Forming and output of the result
 	util := tablewriter.NewWriter(os.Stdout)
 
 	// TODO: Make this dynamically from the struct
-	util.SetHeader([]string{"#", "OBJECT-ID", "USER", "TYPE", "SPECIFICATION", "LOCATION", "IP"})
+	util.SetHeader([]string{"#", "OBJECT-ID", "USER", "TYPE", "SPECIFICATION", "LOCATION", "IP", "MAC"})
 
 	var data [][]string = helper.ProcessStructForTableOutput(results)
 	for _,d := range data {

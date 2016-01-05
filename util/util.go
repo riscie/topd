@@ -8,11 +8,22 @@ import (
 //  max length of string inside a colloumn, so that that there are no linebreaks within the table output
 const rowMaxLenght = 23
 
+// TODO: Make this dynamically from the struct, maybe return the header as well
 func ProcessStructForTableOutput(hardware []model.Hardware) [][]string {
 	var data [][]string
 	for i,h := range hardware{
 		//"#", "OBJECT-ID", "USER", "TYPE", "SPECIFICATION", "LOCATION", "IP"
-		line := []string{strconv.Itoa(i),h.Name,h.User,h.Type, shortenStringsLongerThan(h.Description, rowMaxLenght), h.Location, h.IP}
+		line := []string{
+			strconv.Itoa(i),
+			h.Name,
+			shortenStringsLongerThan(h.User,rowMaxLenght),
+			shortenStringsLongerThan(h.Type,rowMaxLenght),
+			shortenStringsLongerThan(h.Description, rowMaxLenght),
+			shortenStringsLongerThan(h.Location, rowMaxLenght),
+			shortenStringsLongerThan(h.IP, rowMaxLenght),
+			shortenStringsLongerThan(h.MAC, rowMaxLenght),
+		}
+
 		data = append(data, line)
 	}
 	return data
