@@ -16,9 +16,8 @@ func main() {
 	flag.Parse()
 	var searchString string
 	if flag.NArg() != 1 {
-		//usage()
-		//os.Exit(1)
-		searchString = "nb27"
+		usage()
+		os.Exit(1)
 	} else {
 		searchString = flag.Arg(0)
 	}
@@ -52,10 +51,10 @@ func usage() {
 		Usage: 	topd <search>
 
 		Examples:
-			topd nb2737 		//search by TOPdesk inventory number
-	 		topd 10.197.10		//search by ip (all IP's with 10.197.10.*)
-	 		topd 01-00-5e-7f-ff-fa	//search by MAC address (needs excat entry)
-	 		topd Bucher		//search by the users name
+			topd nb2737 		|  search by TOPdesk inventory number or hostname
+	 		topd 10.197.10		|  search by ip (all IP's with 10.197.10.*)
+	 		topd 01-00-5e-7f-ff-fa	|  search by MAC address (needs excat entry)
+	 		topd Bucher		|  search by the users name
 
 	 	Info:	Shows only active devices
 	 `)
