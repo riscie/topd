@@ -18,7 +18,7 @@ func main() {
 	if flag.NArg() != 1 {
 		//usage()
 		//os.Exit(1)
-		searchString = "nb276"
+		searchString = "nb276asdfadsf"
 	} else {
 		searchString = flag.Arg(0)
 	}
@@ -31,15 +31,20 @@ func main() {
 	//TODO: Fix error when no results
 	results := model.FindHardware(searchString)
 
-	// Table-Forming and output of the result
-	table := tablewriter.NewWriter(os.Stdout)
-	tableHeader := util.CreateTableHeaderFromQueryResult(results)
-	tableData := util.CreateTableDataFromQueryResult(results)
-	for _, t := range tableData {
-		table.Append(t)
+	if len(results) > 0 {
+		// Table-Forming and output of the result
+		table := tablewriter.NewWriter(os.Stdout)
+		tableHeader := util.CreateTableHeaderFromQueryResult(results)
+		tableData := util.CreateTableDataFromQueryResult(results)
+		for _, t := range tableData {
+			table.Append(t)
+		}
+		table.SetHeader(tableHeader)
+		table.Render()
+	} else {
+		fmt.Println("Info: No Hardware found")
 	}
-	table.SetHeader(tableHeader)
-	table.Render()
+
 }
 
 // Displays the help message to the user
