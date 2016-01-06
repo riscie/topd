@@ -19,50 +19,10 @@ type Hardware struct {
 func FindHardware(searchString string) ([]Hardware) {
 	result := []Hardware{}
 	//TODO: Rewrite query with better security against sql injection
-	err := db.Select(&result, "SELECT naam, ref_gebruiker, objecttype, specificatie, ref_lokatie, ipadres, macadres FROM hardware where naam Like '%"+searchString+"%' OR ref_gebruiker Like '%"+searchString+"%' OR ipadres Like '%"+searchString+"%' OR macadres Like '%"+searchString+"%'")
+	//statusid = '11F18C35-FAB2-5802-86CA-B9DF68C41B8F' means the device has the status 'aktiv'
+	err := db.Select(&result, "SELECT naam, ref_gebruiker, objecttype, specificatie, ref_lokatie, ipadres, macadres FROM hardware WHERE (naam Like '%"+searchString+"%' OR ref_gebruiker Like '%"+searchString+"%' OR ipadres Like '%"+searchString+"%' OR macadres Like '%"+searchString+"%') AND statusid = '11F18C35-FAB2-5802-86CA-B9DF68C41B8F'")
 	if err != nil {
 		log.Fatal(err)
 	}
 	return result
 }
-
-/*
-//FindByInventoryName finds results by inventory name
-func FindByInventoryName(input string) [][]string {
-	var data [][]string
-	var naam, ref_gebruiker, objecttype, specificatie, ref_lokatie, ipadres string
-
-	rows, err := db.Query("SELECT naam, ref_gebruiker, objecttype, specificatie, ref_lokatie, ipadres FROM hardware where naam Like '%" + input + "%'")
-
-	if err != nil {
-		fmt.Println("Query Error1")
-		log.Fatal(err)
-	}
-	defer rows.Close()
-	for rows.Next() {
-		err := rows.Scan(&naam, &ref_gebruiker, &objecttype, &specificatie, &ref_lokatie, &ipadres)
-		if err != nil {
-			log.Fatal(err)
-			fmt.Println("Query Error2")
-		}
-
-		// reformating strings
-		naam = shortenStringsLongerThan(naam, rowMaxLenght)
-		ref_gebruiker = shortenStringsLongerThan(ref_gebruiker, rowMaxLenght)
-		objecttype = shortenStringsLongerThan(objecttype, rowMaxLenght)
-		specificatie = shortenStringsLongerThan(specificatie, rowMaxLenght)
-		ref_lokatie = shortenStringsLongerThan(ref_lokatie, rowMaxLenght)
-		ipadres = shortenStringsLongerThan(ipadres, rowMaxLenght)
-
-		row := []string{naam, ref_gebruiker, objecttype, specificatie, ref_lokatie, ipadres}
-		data = append(data, row)
-
-	}
-	err = rows.Err()
-	if err != nil {
-		fmt.Println("Query Error3")
-		log.Fatal(err)
-	}
-	return data
-}
-*/

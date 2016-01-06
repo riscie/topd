@@ -18,7 +18,7 @@ func main() {
 	if flag.NArg() != 1 {
 		//usage()
 		//os.Exit(1)
-		searchString = "nb276asdfadsf"
+		searchString = "nb27"
 	} else {
 		searchString = flag.Arg(0)
 	}
@@ -28,7 +28,6 @@ func main() {
 	defer model.CloseDB()
 
 	//Database Query
-	//TODO: Fix error when no results
 	results := model.FindHardware(searchString)
 
 	if len(results) > 0 {
