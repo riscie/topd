@@ -14,9 +14,11 @@ const rowMaxLenght = 23
 func CreateTableDataFromQueryResult(hardware []model.Hardware) [][]string {
 	var tableData [][]string
 	for i, h := range hardware {
+		//Todo: Make this dynamically from the struct with reflection
 		line := []string{
 			strconv.Itoa(i),
 			h.ObjectID,
+			shortenStringsLongerThan(h.Hostname, rowMaxLenght),
 			shortenStringsLongerThan(h.User, rowMaxLenght),
 			shortenStringsLongerThan(h.Type, rowMaxLenght),
 			shortenStringsLongerThan(h.Description, rowMaxLenght),
@@ -30,6 +32,8 @@ func CreateTableDataFromQueryResult(hardware []model.Hardware) [][]string {
 	return tableData
 }
 
+// CreateTableHeaderFromQueryResult generates the slice of strings which is needed for the table header
+//
 func CreateTableHeaderFromQueryResult(result []model.Hardware) []string {
 	//Title: "#", "OBJECT-ID", "USER", "TYPE", "SPECIFICATION", "LOCATION", "IP", "MAC"
 	var tableHeader []string

@@ -16,9 +16,9 @@ func main() {
 	flag.Parse()
 	var searchString string
 	if flag.NArg() != 1 {
-		usage()
-		os.Exit(1)
-		//searchString = "nb27"
+		//usage()
+		//os.Exit(1)
+		searchString = "nb27"
 	} else {
 		searchString = flag.Arg(0)
 	}
