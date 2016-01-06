@@ -16,7 +16,7 @@ func CreateTableDataFromQueryResult(hardware []model.Hardware) [][]string {
 	for i, h := range hardware {
 		//Todo: Make this dynamically from the struct with reflection
 		line := []string{
-			strconv.Itoa(i+1),
+			strconv.Itoa(i + 1),
 			h.ObjectID,
 			shortenStringsLongerThan(h.Hostname, rowMaxLenght),
 			shortenStringsLongerThan(h.User, rowMaxLenght),
