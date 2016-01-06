@@ -15,14 +15,15 @@ type Hardware struct {
 	MAC         string `db:"macadres"`
 }
 
-//FindByName finds Hardware objects by Name and returns a slice of Hardware
-func FindByName(searchString string) ([]Hardware, error) {
+//FindHardware finds Hardware objects by ObjectID or Username and returns a slice of Hardware
+func FindHardware(searchString string) ([]Hardware) {
 	result := []Hardware{}
-	err := db.Select(&result, "SELECT naam, ref_gebruiker, objecttype, specificatie, ref_lokatie, ipadres, macadres FROM hardware where naam Like '%"+searchString+"%'")
+	//TODO: Rewrite query with better security against sql injection
+	err := db.Select(&result, "SELECT naam, ref_gebruiker, objecttype, specificatie, ref_lokatie, ipadres, macadres FROM hardware where naam Like '%"+searchString+"%' OR ref_gebruiker Like '%"+searchString+"%' OR ipadres Like '%"+searchString+"%' OR macadres Like '%"+searchString+"%'")
 	if err != nil {
 		log.Fatal(err)
 	}
-	return result, err
+	return result
 }
 
 /*

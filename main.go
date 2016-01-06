@@ -27,20 +27,19 @@ func main() {
 	model.InitializeDB()
 	defer model.CloseDB()
 
-	// TODO: Adding the searchString Parser here
-	// We are only getting items where we find the object-name atm...
-	results := []model.Hardware{}
-	results, _ = model.FindByName(searchString)
+	//Database Query
+	//TODO: Fix error when no results
+	results := model.FindHardware(searchString)
 
 	// Table-Forming and output of the result
-	util := tablewriter.NewWriter(os.Stdout)
-	tableHeader := helper.CreateTableHeaderFromQueryResult(results)
-	tableData := helper.CreateTableDataFromQueryResult(results)
+	table := tablewriter.NewWriter(os.Stdout)
+	tableHeader := util.CreateTableHeaderFromQueryResult(results)
+	tableData := util.CreateTableDataFromQueryResult(results)
 	for _, t := range tableData {
-		util.Append(t)
+		table.Append(t)
 	}
-	util.SetHeader(tableHeader)
-	util.Render()
+	table.SetHeader(tableHeader)
+	table.Render()
 }
 
 // Displays the help message to the user

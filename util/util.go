@@ -1,9 +1,9 @@
-package helper
+package util
 
 import (
 	"github.com/riscie/topd/model"
-	"strconv"
 	"reflect"
+	"strconv"
 )
 
 // max length of string inside a colloumn, so that that there are no linebreaks within the table output
@@ -25,19 +25,17 @@ func CreateTableDataFromQueryResult(hardware []model.Hardware) [][]string {
 			shortenStringsLongerThan(h.MAC, rowMaxLenght),
 		}
 
-
-
 		tableData = append(tableData, line)
 	}
 	return tableData
 }
 
-func CreateTableHeaderFromQueryResult(result []model.Hardware)([]string){
+func CreateTableHeaderFromQueryResult(result []model.Hardware) []string {
 	//Title: "#", "OBJECT-ID", "USER", "TYPE", "SPECIFICATION", "LOCATION", "IP", "MAC"
-	var tableHeader[]string
+	var tableHeader []string
 	tableHeader = append(tableHeader, "#") //Adding # for the index
 	value := reflect.Indirect(reflect.ValueOf(result[0]))
-	for i := 0; i<value.Type().NumField(); i++ {
+	for i := 0; i < value.Type().NumField(); i++ {
 		tableHeader = append(tableHeader, value.Type().Field(i).Name) //adding each variable Name to the Table Header
 	}
 
