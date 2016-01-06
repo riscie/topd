@@ -16,7 +16,7 @@ func CreateTableDataFromQueryResult(hardware []model.Hardware) [][]string {
 	for i, h := range hardware {
 		//Todo: Make this dynamically from the struct with reflection
 		line := []string{
-			strconv.Itoa(i),
+			strconv.Itoa(i+1),
 			h.ObjectID,
 			shortenStringsLongerThan(h.Hostname, rowMaxLenght),
 			shortenStringsLongerThan(h.User, rowMaxLenght),
@@ -37,7 +37,7 @@ func CreateTableDataFromQueryResult(hardware []model.Hardware) [][]string {
 func CreateTableHeaderFromQueryResult(result []model.Hardware) []string {
 	//Title: "#", "OBJECT-ID", "USER", "TYPE", "SPECIFICATION", "LOCATION", "IP", "MAC"
 	var tableHeader []string
-	tableHeader = append(tableHeader, "#") //Adding # for the index
+	tableHeader = append(tableHeader, "  #") //Adding # for the index
 	value := reflect.Indirect(reflect.ValueOf(result[0]))
 	for i := 0; i < value.Type().NumField(); i++ {
 		tableHeader = append(tableHeader, value.Type().Field(i).Name) //adding each variable Name to the Table Header
