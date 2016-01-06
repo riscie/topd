@@ -1,29 +1,32 @@
 # topd
-make simple search querys against a TOPdesk DB in your console
+**make simple search querys against a TOPdesk DB in your console**
 
-### Example:
+#### Usage:
+    topd <search keyword>
 
-Search for a device by it's hostname:
 
-Usage:  topd <search>
+#### Example Output:
 
-    Examples:
-        topd nb2737         //search by inventory number
+![sample output png](http://langhard.com/github/topd.png "sample topd output")
 
-Example:
 
-`topd NB113`
+#### Search Examples:
 
-output:
+**search by TOPdesk inventory number or hostname**
 
-    +----------+--------------------+----------------+----------------------------+
-    | HOSTNAME |        USER        |      TYPE      |       SPECIFICATION        |
-    +----------+--------------------+----------------+----------------------------+
-    | NB1131   | IT                 | Latitude E6430 | Core i5-3230M, 8GB RAM,... |
-    | NB1132   | Franz              | Latitude E6430 | Core i5-3230M, 8GB RAM,... |
-    | NB1133   | Allgemein          | Latitude E6430 | Core i5-3230M, 8GB RAM,... |
-    | NB1134   | Markus             | Latitude E6430 | Core i5-3230M, 8GB RAM,... |
-    | NB1136   | Beat               | Latitude E7440 | Core i5-4300U, 8GB RAM,... |
-    | NB1137   | Frederik           | Latitude E7440 | Core i5-4300U, 8GB RAM,... |
-    | NB1139   | Mustafa            | Latitude E7440 | Core i5-4300U, 8GB RAM,... |
-    +----------+--------------------+----------------+----------------------------+
+    topd PC2115
+
+**search by IP Address (finds all devices with an IP startig with 10.10.3.)**
+
+    topd 10.10.3.
+
+**search by MAC address**
+
+    topd 01-00-5e-7f-ff-fa
+    
+**serach by the users name**
+
+    topd Max
+
+**(Shows only active devices)**
+

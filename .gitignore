@@ -78,3 +78,5 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+# Project specific files
+/project_info
