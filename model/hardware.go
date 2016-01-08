@@ -23,7 +23,7 @@ func FindHardware(searchString string) []Hardware {
 	//TODO: Check again if only active devices are shown (archive is shown as well imo)
 	//TODO: Modifiy so that phones can be found as well (diffrent db table)
 	//statusid = '11F18C35-FAB2-5802-86CA-B9DF68C41B8F' means the device has the status 'aktiv'
-	err := db.Select(&result, "SELECT naam, hostnaam, ref_gebruiker, objecttype, specificatie, ref_lokatie, ipadres, macadres FROM hardware WHERE (naam Like '%"+searchString+"%' OR ref_gebruiker Like '%"+searchString+"%' OR ipadres Like '%"+searchString+"%' OR macadres Like '%"+searchString+"%' OR hostnaam Like '%"+searchString+"%') AND statusid = '11F18C35-FAB2-5802-86CA-B9DF68C41B8F'")
+	err := db.Select(&result, "SELECT naam, hostnaam, ref_gebruiker, objecttype, specificatie, ref_lokatie, ipadres, macadres FROM hardware WHERE (naam Like '%"+searchString+"%' OR ref_gebruiker Like '%"+searchString+"%' OR ipadres Like '%"+searchString+"%' OR macadres Like '%"+searchString+"%' OR hostnaam Like '%"+searchString+"%') AND statusid = '11F18C35-FAB2-5802-86CA-B9DF68C41B8F' AND archiefredenid IS NULL")
 	if err != nil {
 		log.Fatal(err)
 	}
