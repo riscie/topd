@@ -14,26 +14,19 @@ const rowMaxLenght = 23
 func CreateTableDataFromQueryResult(hardware []model.Hardware) [][]string {
 	var tableData [][]string
 	for i, h := range hardware {
-		//Todo: Make this dynamically from the struct with reflection
-		line := []string{
-			strconv.Itoa(i + 1),
-			h.ObjectID,
-			shortenStringsLongerThan(h.Hostname, rowMaxLenght),
-			shortenStringsLongerThan(h.User, rowMaxLenght),
-			shortenStringsLongerThan(h.Type, rowMaxLenght),
-			shortenStringsLongerThan(h.Description, rowMaxLenght),
-			shortenStringsLongerThan(h.Location, rowMaxLenght),
-			shortenStringsLongerThan(h.IP, rowMaxLenght),
-			shortenStringsLongerThan(h.MAC, rowMaxLenght),
+		//Using reflection to iterate over the hardware sttuct
+		line := []string{}
+		line = append(line, strconv.Itoa(i+1)) //adding the index
+		value := reflect.Indirect(reflect.ValueOf(h))
+		for i := 0; i < value.Type().NumField(); i++ {
+			line = append(line, shortenStringsLongerThan(value.Field(i).String(), rowMaxLenght)) //adding each value to the table
 		}
-
 		tableData = append(tableData, line)
 	}
 	return tableData
 }
 
 // CreateTableHeaderFromQueryResult generates the slice of strings which is needed for the table header
-//
 func CreateTableHeaderFromQueryResult(result []model.Hardware) []string {
 	//Title: "#", "OBJECT-ID", "USER", "TYPE", "SPECIFICATION", "LOCATION", "IP", "MAC"
 	var tableHeader []string
