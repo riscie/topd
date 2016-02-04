@@ -1,4 +1,5 @@
 # topd
+[![Go Report Card](http://goreportcard.com/badge/riscie/topd)](http://goreportcard.com/report/riscie/topd)
 **make simple search querys against a TOPdesk DB in your console**
 
 #### Usage:
